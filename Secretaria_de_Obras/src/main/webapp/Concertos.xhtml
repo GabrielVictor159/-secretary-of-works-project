@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>pagina1</title>
+	<h:outputStylesheet library="css" name="css3.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:button styleClass="botão inicial" value="Pagina inicial"
+			outcome="index"></h:button>
+		<h:panelGroup styleClass="menulogin" layout="block"
+			rendered="#{concertos.daoconcertos.paginalogin}">
+			<h:graphicImage styleClass="imagem" library="imgs"
+				name="administrador.png"></h:graphicImage>
+			<br />
+			<br />
+			<h:outputText styleClass="textoregistro1" value="Usuario:" />
+			<h:inputText styleClass="inputsregistro"
+				value="#{concertos.admin.nomedoUsuario}"></h:inputText>
+			<br />
+			<h:outputText styleClass="errors"
+				rendered="#{concertos.daoconcertos.usuarioinexistente}"
+				value="Usuario inexistente"></h:outputText>
+			<br />
+			<h:outputText styleClass="textoregistro2" value="Senha:" />
+			<h:inputSecret styleClass="inputsregistro"
+				value="#{concertos.admin.senhadoUsuario}"></h:inputSecret>
+			<br />
+			<h:outputText styleClass="errors"
+				rendered="#{concertos.daoconcertos.senhaerrada}"
+				value="Senha errada"></h:outputText>
+			<br />
+			<br />
+			<h:commandButton styleClass="botaologar" value="Login"
+				action="#{concertos.logar}"></h:commandButton>
+			<br />
+			<h:commandLink value="registrar" action="#{concertos.registro}"></h:commandLink>
+
+		</h:panelGroup>
+		<h:panelGroup styleClass="menulogin" layout="block"
+			rendered="#{concertos.daoconcertos.registrousuario}">
+			<h:graphicImage styleClass="imagem" library="imgs"
+				name="administrador.png"></h:graphicImage>
+			<br />
+			<br />
+			<h:outputText styleClass="textoregistro1" value="Usuario:" />
+			<h:inputText styleClass="inputsregistro"
+				value="#{concertos.admin.nomedoUsuario}"></h:inputText>
+			<br />
+			<h:outputText styleClass="errors" value="Usuario ja existe"
+				rendered="#{concertos.daoconcertos.usuarioexistente}"></h:outputText>
+			<br />
+			<h:outputText styleClass="textoregistro2" value="Senha:" />
+			<h:inputSecret styleClass="inputsregistro"
+				value="#{concertos.senharegistro1}"></h:inputSecret>
+			<br />
+			<br />
+			<h:outputText styleClass="textoregistro3" value="Confirme a senha:" />
+			<h:inputSecret styleClass="inputsregistro"
+				value="#{concertos.senharegistro2}"></h:inputSecret>
+			<br />
+			<br />
+			<h:outputText styleClass="errors" value="Senhas diferentes"
+				rendered="#{concertos.daoconcertos.senhasdiferentes}"></h:outputText>
+			<br />
+			<h:commandButton styleClass="botaologar" value="Registrar"
+				action="#{concertos.registrar}"></h:commandButton>
+			<br />
+			<h:commandLink styleClass="linkregistrar" value="Login"
+				action="#{concertos.acessarlogin}"></h:commandLink>
+			<br />
+		</h:panelGroup>
+		<h:panelGroup styleClass="menu" layout="block"
+			rendered="#{concertos.daoconcertos.paginadeconcerto}">
+			<h:panelGroup layout="block"
+				rendered="#{concertos.daoconcertos.administrador}">
+				<h:outputText styleClass="titulo"
+					value="Por favor nos informe o numero e o valor da reclamação"></h:outputText>
+				<br />
+				<h:panelGroup styleClass="inputsConcerto" layout="block">
+			Numero: <h:inputText styleClass="inputconcerto1"
+						value="#{concertos.numerodareclamacao}" type="number"
+						required="true"></h:inputText>
+					<br />
+					<h:outputText styleClass="errors" value="Reclamação não existe"
+						rendered="#{concertos.daoconcertos.reclamacaonaoexiste}"></h:outputText>
+					<br />
+			Valor: <h:inputText styleClass="inputconcerto2"
+						value="#{concertos.valordareclamacao}" type="number"
+						required="true"></h:inputText>
+					<br />
+					<h:outputText styleClass="errors"
+						value="Reclamação Ja possui um concerto"
+						rendered="#{concertos.daoconcertos.concertojaexiste}"></h:outputText>
+					<br />
+					<h:commandButton styleClass="botaoadicionar" value="Adicionar"
+						action="#{concertos.Persistir}"></h:commandButton>
+				</h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="resultado"
+				rendered="#{concertos.daoconcertos.sucessoreclamacao}">
+				<h:outputText styleClass="titulo2"
+					value="Sucesso em registrar o conserto"></h:outputText>
+				<h:panelGroup styleClass="ResultadosTextos">
+					<h:outputText value="Numero da Reclamação: " styleClass="valores"></h:outputText>
+					<h:outputText styleClass="valores"
+						value="#{concertos.con.numerodareclamacao}"></h:outputText>
+					<br />
+					<br />
+					<h:outputText value="Valor do Conserto: " styleClass="valores"></h:outputText>
+					<h:outputText styleClass="valores"
+						value="#{concertos.con.valordoconserto}"></h:outputText>
+					<br />
+					<br />
+					<h:outputText value="Data do Conserto: " styleClass="valores"></h:outputText>
+					<h:outputText styleClass="valores" value="#{concertos.con.data}"></h:outputText>
+					<br />
+					<br />
+				</h:panelGroup>
+			</h:panelGroup>
+			<h:button styleClass="botaovoltar" value="Voltar" outcome="index"
+				rendered="#{concertos.daoconcertos.sucessoreclamacao}"></h:button>
+		</h:panelGroup>
+
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>pagina1</title>
+	<h:outputStylesheet library="css" name="css1.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form >
+	
+	<h:button styleClass="botão inicial" value="Pagina inicial"
+			outcome="index"></h:button>
+			<h:panelGroup styleClass="container" layout="block">
+		<h:panelGroup styleClass="menu" rendered="#{agoravai.mostrardiv1}">
+			<h:outputText styleClass="titulo" value="Muito Bem"></h:outputText>
+			<br />
+			<h:outputText styleClass="texto"
+				value="Por favor nos diga o endereço"></h:outputText>
+			<br />
+			<h:panelGroup styleClass="inputs" layout="block">
+				<h:message styleClass="error1" for="entrada1" />
+				<br />
+Rua: <h:inputText id="entrada1" styleClass="ruaentrada"
+					value="#{agoravai.endereco.rua}" required="true"
+					requiredMessage="Por favor nos informe a rua">
+					<f:validateLength minimum="1" maximum="99999"></f:validateLength>
+				</h:inputText>
+				<br />
+				<h:message styleClass="error2" for="entrada2" />
+				<br />
+Bairro: <h:inputText id="entrada2" styleClass="bairroentrada"
+					value="#{agoravai.endereco.bairro}" required="true"
+					requiredMessage="Por favor nos informe o bairro">
+					<f:validateLength minimum="1" maximum="99999"></f:validateLength>
+				</h:inputText>
+				<br />
+				<h:message styleClass="error3" for="entrada3" />
+				<br />
+Número: <h:inputText id="entrada3" styleClass="numeroentrada"
+					value="#{agoravai.endereco.numero}" required="true"
+					requiredMessage="Por favor nos informe o numero">
+					<f:validateLength minimum="1" maximum="99999"></f:validateLength>
+				</h:inputText>
+			</h:panelGroup>
+			<h:commandButton styleClass="botao1" value="pronto"
+				action="#{agoravai.persistirendereco}"></h:commandButton>
+		</h:panelGroup>
+		<h:panelGroup styleClass="menu2" rendered="#{agoravai.mostrardiv2}">
+			<h:outputText styleClass="titulo" value="Qual o tamanho do buraco ?"></h:outputText>
+			<h:panelGroup styleClass="imagemburaco" layout="block"></h:panelGroup>
+			<h:panelGroup styleClass="select" layout="block">
+				<h:message styleClass="textoerror" for="templateMenu" />
+				<h:selectOneRadio id="templateMenu"
+					value="#{agoravai.reclamacoes.tamanho}" required="true"
+					requiredMessage="Por favor selecione um">
+					<f:selectItem itemLabel="1" itemValue="1"></f:selectItem>
+					<f:selectItem itemLabel="2" itemValue="2"></f:selectItem>
+					<f:selectItem itemLabel="3" itemValue="3"></f:selectItem>
+					<f:selectItem itemLabel="4" itemValue="4"></f:selectItem>
+					<f:selectItem itemLabel="5" itemValue="5"></f:selectItem>
+					<f:selectItem itemLabel="6" itemValue="6"></f:selectItem>
+					<f:selectItem itemLabel="7" itemValue="7"></f:selectItem>
+					<f:selectItem itemLabel="8" itemValue="8"></f:selectItem>
+					<f:selectItem itemLabel="9" itemValue="9"></f:selectItem>
+					<f:selectItem itemLabel="10" itemValue="10"></f:selectItem>
+					<f:convertNumber type="number"></f:convertNumber>
+					<f:validateRequired />
+				</h:selectOneRadio>
+				<h:commandButton styleClass="botao2" value="PRONTO"
+					action="#{agoravai.settamanho}">
+				</h:commandButton>
+			</h:panelGroup>
+		</h:panelGroup>
+
+
+		<h:panelGroup styleClass="menu3" rendered="#{agoravai.mostrardiv3}">
+			<h:outputText styleClass="titulo" value="Onde esta o buraco ?"></h:outputText>
+			<br />
+			<h:panelGroup styleClass="opcoes" layout="block">
+				<h:commandLink styleClass="imagem1"
+					action="#{agoravai.localidade('calçada')}"></h:commandLink>
+				<h:commandLink styleClass="imagem2"
+					action="#{agoravai.localidade('rua')}"></h:commandLink>
+				<h:outputText styleClass="texto1" value="Rua"></h:outputText>
+				<h:outputText styleClass="texto2" value="Calçada"></h:outputText>
+			</h:panelGroup>
+		</h:panelGroup>
+
+
+		<h:panelGroup styleClass="menu4" rendered="#{agoravai.mostrardiv4}">
+			<h:panelGroup layout="block">
+				<h:outputText styleClass="titulo"
+					value="Cadastro realizado com sucesso"></h:outputText>
+				<br />
+				<h:outputText styleClass="titulo2" value="Informações Registradas"></h:outputText>
+				<br />
+				<h:panelGroup styleClass="divinformacoes" layout="block">
+Numero: <h:outputText value="#{agoravai.re.numero}"></h:outputText>
+					<br />
+					<br />
+Endereço: <h:outputText value="#{agoravai.re.endereco.bairro}"></h:outputText>, <h:outputText
+						value="#{agoravai.re.endereco.rua}"></h:outputText>, <h:outputText
+						value="#{agoravai.re.endereco.numero}"></h:outputText>
+					<br />
+					<br />
+Tamanho: <h:outputText value="#{agoravai.re.tamanho}"></h:outputText>
+					<br />
+					<br />
+Localidade: <h:outputText value="#{agoravai.re.localidade}"></h:outputText>
+					<br />
+					<br />
+Data: <h:outputText value="#{agoravai.re.data}"></h:outputText>
+<br />
+<br />
+					<h:button styleClass="botao4" outcome="index" value="VOLTAR"></h:button>
+					<h:commandButton styleClass="botao5" value="APAGAR" action="#{agoravai.apagarregistro}"></h:commandButton>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+</h:panelGroup>
+	</h:form>
+</h:body>
+</html>
