@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+			background-position: 50% 0%;
+			background-image: url("imgs/background.jpg");
+			
+		}
+		#menu{
+			box-shadow: 4px 4px 3px 3px black;
+			border: 5px solid #8C6002;
+		background-color: #FFFFFF;
+			width: 900px;
+			height: 600px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-right: -50%;
+			transform: translate(-50%,-50%);
+		}
+		.reclamacao{
+		background-image: url("imgs/opção 3.png");
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 270px;
+			height: 360px;
+			position: absolute;
+			top: 20%;
+			left: 3%;
+			
+		}
+		.reclamacao:hover{
+			top: 18%;
+			transition: all 0.5s;
+		}
+		.administrativo{
+		background-image: url("imgs/opção 2.png");
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 270px;
+			height: 360px;
+			position: absolute;
+			top: 20%;
+			left: 35%;
+		}
+		.administrativo:hover{
+			top: 18%;
+			transition: all 0.5s;
+			
+		}
+		.consertos{
+		background-image: url("imgs/opção 1.png");
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 270px;
+			height: 360px;
+			position: absolute;
+			top: 20%;
+			left: 67%;
+		}
+		.consertos:hover{
+			top: 18%;
+			transition: all 0.5s;
+		}
+

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>pagina1</title>
+	<f:metadata>
+		<f:viewAction action="#{Lista.carregarReclamacoes}" />
+	</f:metadata>
+	<h:outputStylesheet library="css" name="css2.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:button styleClass="botão inicial" value="Pagina inicial"
+			outcome="index"></h:button>
+		<h:panelGroup styleClass="menu" layout="block" prepenId="false"
+			rendered="#{consulta.daoadministrativo.administrador}">
+			<p:dataTable styleClass="tabela" rowStyleClass="linhas"
+				value="#{Lista.reclamacoes}" var="rec" paginator="true"
+				paginatorPosition="bottom" rows="7" stripedRows="true"
+				resizableColumns="true" showGridlines="true">
+
+				<p:column style="text-align:center;">
+					<f:facet name="header">Numero</f:facet>
+					<h:outputText value="#{rec.numero}"></h:outputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Rua</f:facet>
+					<h:outputText value="#{rec.endereco.rua}"
+						rendered="#{not rec.editing}"></h:outputText>
+					<h:inputText styleClass="inputs" value="#{rec.endereco.rua}"
+						rendered="#{rec.editing}"></h:inputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Bairro</f:facet>
+					<h:outputText value="#{rec.endereco.bairro}"
+						rendered="#{not rec.editing}"></h:outputText>
+					<h:inputText styleClass="inputs" value="#{rec.endereco.bairro}"
+						rendered="#{rec.editing}"></h:inputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Nm_Endreço</f:facet>
+					<h:outputText value="#{rec.endereco.numero}"
+						rendered="#{not rec.editing}"></h:outputText>
+					<h:inputText styleClass="inputs" value="#{rec.endereco.numero}"
+						rendered="#{rec.editing}"></h:inputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Local</f:facet>
+					<h:outputText value="#{rec.localidade}"
+						rendered="#{not rec.editing}"></h:outputText>
+
+						<h:selectOneMenu value="#{rec.localidade}" rendered="#{rec.editing}">
+						<f:selectItem itemLabel="rua" itemValue="rua"></f:selectItem>
+						<f:selectItem itemLabel="calçada" itemValue="calçada"></f:selectItem>
+						</h:selectOneMenu>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Tamanho</f:facet>
+					<h:outputText value="#{rec.tamanho}" rendered="#{not rec.editing}"></h:outputText>
+					<h:inputText styleClass="inputs" value="#{rec.tamanho}"
+						rendered="#{rec.editing}">
+						<f:validateLength minimum="1" maximum="10"></f:validateLength>
+						</h:inputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Data</f:facet>
+					<h:outputText value="#{rec.data}" rendered="#{not rec.editing}"></h:outputText>
+					<h:inputText styleClass="inputs" value="#{rec.data}"
+						rendered="#{rec.editing}"></h:inputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Dt_Concerto</f:facet>
+					<h:outputText value="#{rec.concerto.data}"
+						rendered="#{not rec.editing and rec.concerto != null}"></h:outputText>
+					<h:inputText styleClass="inputs" value="#{rec.concerto.data}"
+						rendered="#{rec.editing and rec.concerto != null}"></h:inputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Vl_Concerto</f:facet>
+					<h:outputText value="#{rec.concerto.valordoconserto}"
+						rendered="#{not rec.editing and rec.concerto != null}"></h:outputText>
+					<h:inputText styleClass="inputs" value="#{rec.concerto.valordoconserto}"
+						rendered="#{rec.editing and rec.concerto != null}"></h:inputText>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Salvar</f:facet>
+					<h:commandButton styleClass="botoes" value="Salvar"
+						action="#{Lista.update(rec)}" rendered="#{rec.editing}"></h:commandButton>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Editar</f:facet>
+					<h:commandButton styleClass="botoes" value="Editar"
+						action="#{Lista.editar(rec)}" rendered="#{not rec.editing}"></h:commandButton>
+				</p:column>
+				<p:column style="text-align:center;">
+					<f:facet name="header">Excluir</f:facet>
+					<h:commandButton styleClass="botoes" value="Excluir"
+						action="#{Lista.eliminarcoluna(rec)}"
+						rendered="#{not rec.editing}"></h:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:panelGroup>
+		<h:panelGroup styleClass="menulogin"
+			rendered="#{consulta.daoadministrativo.paginalogin}">
+			<h:graphicImage styleClass="imagem" library="imgs"
+				name="administrador.png"></h:graphicImage>
+			<br />
+			<br />
+			<h:outputText styleClass="textoregistro1" value="usuario:" />
+			<h:inputText styleClass="inputsregistro"
+				value="#{consulta.admin.nomedoUsuario}" ></h:inputText>
+			<br />
+			<h:outputText styleClass="errors"
+				rendered="#{consulta.daoadministrativo.usuarioinexistente}"
+				value="Usuario inexistente"></h:outputText>
+			<br />
+			<h:outputText styleClass="textoregistro2" value="Senha:" />
+			<h:inputSecret styleClass="inputsregistro"
+				value="#{consulta.admin.senhadoUsuario}" ></h:inputSecret>
+			<br />
+			<h:outputText styleClass="errors"
+				rendered="#{consulta.daoadministrativo.senhaerrada}"
+				value="Senha errada"></h:outputText>
+			<br />
+			<br />
+			<h:commandButton styleClass="botaologar" value="Login"
+				action="#{consulta.logar}"></h:commandButton>
+			<br />
+			<h:commandLink styleClass="linkregistrar" value="Registrar"
+				action="#{consulta.acessarregistrodeusuario}"></h:commandLink>
+			<br />
+		</h:panelGroup>
+		<h:panelGroup styleClass="menulogin" layout="block"
+			rendered="#{consulta.daoadministrativo.registrousuario}">
+			<h:graphicImage styleClass="imagem" library="imgs"
+				name="administrador.png"></h:graphicImage>
+			<br />
+			<br />
+			<h:outputText styleClass="textoregistro1" value="usuario:" />
+			<h:inputText styleClass="inputsregistro"
+				value="#{consulta.admin.nomedoUsuario}" ></h:inputText>
+			<br />
+			<h:outputText styleClass="errors" value="Usuario ja existe"
+				rendered="#{consulta.daoadministrativo.usuarioexistente}"></h:outputText>
+			<br />
+			<h:outputText styleClass="textoregistro2" value="Senha:" />
+			<h:inputSecret styleClass="inputsregistro"
+				value="#{consulta.senharegistro1}" ></h:inputSecret>
+			<br />
+			<br />
+			<h:outputText styleClass="textoregistro3" value="Confirme a senha:" />
+			<h:inputSecret styleClass="inputsregistro"
+				value="#{consulta.senharegistro2}" ></h:inputSecret>
+			<br />
+			<br />
+			<h:outputText styleClass="errors" value="Senhas diferentes"
+				rendered="#{consulta.daoadministrativo.senhasdiferentes}"></h:outputText>
+			<br />
+			<h:commandButton styleClass="botaologar" value="Registrar"
+				action="#{consulta.registrar}"></h:commandButton>
+			<br />
+			<h:commandLink styleClass="linkregistrar" value="Login"
+				action="#{consulta.acessarlogin}"></h:commandLink>
+			<br />
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>
